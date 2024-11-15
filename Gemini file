@@ -1,0 +1,61 @@
+//@version=5
+indicator(title="Candle Names with Signals, Trend, and S/R", shorttitle="Candle Signals & S/R", overlay=true)
+
+// --- Input Parameters ---
+bodySizeThreshold = input.float(0.1, "Body Size Threshold")
+wickSizeThreshold = input.float(0.2, "Wick Size Threshold")
+smaLength = input.int(20, "SMA Length")
+lookback = input.int(20, "Lookback for S/R")
+
+// Calculate candle body size and wick size
+bodySize = abs(open - close)
+upperWickSize = high - max(open, close)
+lowerWickSize = min(open, close) - low
+
+// --- Trend Identification ---
+smaValue = ta.sma(close, smaLength)
+trend = if close > smaValue
+    "Uptrend"
+else if close < smaValue
+    "Downtrend"
+else
+    "Sideways"
+
+// --- Support and Resistance ---
+// This is a simplified S/R calculation. 
+// You can use more sophisticated methods if needed.
+highPivot = ta.highest(high, lookback)
+lowPivot = ta.lowest(low, lookback)
+
+// Identify candle names and generate signals
+candleName = ""
+signal = ""
+
+// ... (Candle pattern identification and signal logic - same as before) ...
+
+// --- Display and Plotting ---
+// Display candle name, signal, and trend on the chart
+label.new(bar_index, high, text=candleName + "\n" + signal + "\n" + trend, yloc=yloc.abovebar, style=label.style_none, textcolor=color.white)
+
+// Plotting buy and sell signals
+plotshape(signal == "Buy" ? low : na, style=shape.triangleup, color=color.green, size=size.small)
+plotshape(signal == "Sell" ? high : na, style=shape.triangledown, color=color.red, size=size.small)
+
+// Plot the SMA for visual reference
+plot(smaValue, color=color.blue)
+
+// Plot Support and Resistance levels
+plot(highPivot, color=color.red, linewidth=2, trackprice=true, title="Resistance")
+plot(lowPivot, color=color.green, linewidth=2, trackprice=true, title="Support")
+
+Changes:
+ * Input Parameters: Added inputs for lookback (to control the period for S/R calculation) and other parameters for flexibility.
+ * S/R Calculation:
+   * ta.highest(high, lookback) finds the highest high in the lookback period.
+   * ta.lowest(low, lookback) finds the lowest low in the lookback period.
+ * Plotting S/R:  Used plot with trackprice=true to plot horizontal lines for support and resistance levels that adjust dynamically.
+Important Notes:
+ * Simplified S/R: This script uses a basic method to identify support and resistance. More sophisticated methods might consider factors like volume, price action patterns, and trendlines.
+ * Dynamic S/R: The support and resistance levels are dynamic and will change as new highs and lows are formed.
+ * Parameter Tuning: Adjust the lookback parameter to fine-tune the sensitivity of the S/R levels.
+This enhanced script now incorporates support and resistance levels into the analysis, providing a more comprehensive view of potential trading opportunities. Remember to use it responsibly and combine it with other analysis techniques for better decision-making.
