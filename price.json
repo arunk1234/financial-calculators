@@ -1,14 +1,12 @@
-{
+[
   {
-    "name" : "arun",
-  "price" : .354,
-  "quantity" : 10000
-},
-
+    "name": "arun",
+    "price": 0.354,
+    "quantity": 10000
+  },
   {
-    "harhsi" : "arun",
-  "price" : .267,
-  "quantity" : 10000
-}
-
-}
+    "harhsi": "arun",
+    "price": 0.267,
+    "quantity": 10000
+  }
+]
