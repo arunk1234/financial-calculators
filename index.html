@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Position Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Crypto Dashboard</h1>
+        </header>
+
+        <main>
+            <div class="cards-container">
+                <div class="cards-wrapper">
+                    <div class="card crypto-card" id="harshiCard">
+                        <div class="card-header">
+                            <h2>Harshi Details</h2>
+                            <button id="refreshHarshiBtn" class="refresh-btn" aria-label="Refresh Harshi data">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 2v6h-6"></path>
+                                    <path d="M3 12a9 9 0 0 1 15-6.7l3-3"></path>
+                                    <path d="M3 22v-6h6"></path>
+                                    <path d="M21 12a9 9 0 0 1-15 6.7l-3 3"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="loader" id="harshiLoader">
+                            <div class="spinner"></div>
+                            <p>Loading Harshi data...</p>
+                        </div>
+                        
+                        <div id="harshiErrorMessage" class="error-message hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            <p>Failed to load Harshi data. Please try again.</p>
+                        </div>
+                        
+                        <div id="harshiDetailsContainer" class="crypto-detail-container hidden">
+                            <div class="detail-header">
+                                <h3>Detail</h3>
+                                <h3 id="harshiUserName">Harshi</h3>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <div class="detail-label">Quantity</div>
+                                <div class="detail-value">
+                                    <span id="harshiQuantity">30,632</span>
+                                    <button class="edit-btn" id="editHarshiQuantity">Edit</button>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-row alt-row">
+                                <div class="detail-label">Buy Price</div>
+                                <div class="detail-value">
+                                    <span id="harshiBuyPrice">$0.1970</span>
+                                    <button class="edit-btn" id="editHarshiBuyPrice">Edit</button>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <div class="detail-label">Invested Amount</div>
+                                <div class="detail-value" id="harshiInvestedAmount">$6,034.50</div>
+                            </div>
+                            
+                            <div class="detail-row alt-row">
+                                <div class="detail-label">Current Price</div>
+                                <div class="detail-value" id="harshiCurrentPrice">$0.2379</div>
+                            </div>
+                            
+                            <div class="detail-row pl-row" id="harshiProfitLossRow">
+                                <div class="detail-label">Profit/Loss</div>
+                                <div class="detail-value">
+                                    <div id="harshiProfitLoss">$1,254.70</div>
+                                    <div id="harshiProfitLossPercentage">+20.79%</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <div class="detail-label">Total Value</div>
+                                <div class="detail-value" id="harshiTotalValue">$7,289.20</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card crypto-card" id="dogeCard" style="display: none;">
+                        <div class="card-header">
+                            <h2>Dogecoin Details</h2>
+                            <button id="refreshDogeBtn" class="refresh-btn" aria-label="Refresh Dogecoin data">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 2v6h-6"></path>
+                                    <path d="M3 12a9 9 0 0 1 15-6.7l3-3"></path>
+                                    <path d="M3 22v-6h6"></path>
+                                    <path d="M21 12a9 9 0 0 1-15 6.7l-3 3"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="loader" id="dogeLoader">
+                            <div class="spinner"></div>
+                            <p>Loading Dogecoin data...</p>
+                        </div>
+                        
+                        <div id="dogeErrorMessage" class="error-message hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            <p>Failed to load Dogecoin data. Please try again.</p>
+                        </div>
+                        
+                        <div id="dogeDetailsContainer" class="crypto-detail-container hidden">
+                            <div class="detail-header">
+                                <h3>Detail</h3>
+                                <h3 id="dogeUserName">Dogecoin</h3>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <div class="detail-label">Quantity</div>
+                                <div class="detail-value">
+                                    <span id="dogeQuantity">72,780</span>
+                                    <button class="edit-btn" id="editDogeQuantity">Edit</button>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-row alt-row">
+                                <div class="detail-label">Buy Price</div>
+                                <div class="detail-value">
+                                    <span id="dogeBuyPrice">$0.3540</span>
+                                    <button class="edit-btn" id="editDogeBuyPrice">Edit</button>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <div class="detail-label">Invested Amount</div>
+                                <div class="detail-value" id="dogeInvestedAmount">$25,764.12</div>
+                            </div>
+                            
+                            <div class="detail-row alt-row">
+                                <div class="detail-label">Current Price</div>
+                                <div class="detail-value" id="dogeCurrentPrice">$0.2379</div>
+                            </div>
+                            
+                            <div class="detail-row pl-row" id="dogeProfitLossRow">
+                                <div class="detail-label">Profit/Loss</div>
+                                <div class="detail-value">
+                                    <div id="dogeProfitLoss">$-8,450.49</div>
+                                    <div id="dogeProfitLossPercentage">-32.80%</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <div class="detail-label">Total Value</div>
+                                <div class="detail-value" id="dogeTotalValue">$17,313.63</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-indicators" style="display: none;">
+                    <span class="indicator active" data-index="0"></span>
+                    <span class="indicator" data-index="1"></span>
+                </div>
+            </div>
+
+            <div class="card" style="display: none;">
+                <div class="card-header">
+                    <h2>Current Positions</h2>
+                    <button id="refreshBtn" aria-label="Refresh data">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 2v6h-6"></path>
+                            <path d="M3 12a9 9 0 0 1 15-6.7l3-3"></path>
+                            <path d="M3 22v-6h6"></path>
+                            <path d="M21 12a9 9 0 0 1-15 6.7l-3 3"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="loader" id="loader">
+                    <div class="spinner"></div>
+                    <p>Loading data...</p>
+                </div>
+                
+                <div id="errorMessage" class="error-message hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <p>Failed to load data. Please try again.</p>
+                </div>
+                
+                <div id="positionsContainer" class="hidden">
+                    <div class="summary-stats">
+                        <div class="stat">
+                            <h3>Total Value</h3>
+                            <p id="totalValue">$0.00</p>
+                        </div>
+                        <div class="stat">
+                            <h3>Total P/L</h3>
+                            <p id="totalPL">$0.00</p>
+                        </div>
+                        <div class="stat">
+                            <h3>Positions</h3>
+                            <p id="positionCount">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table id="positionsTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Value</th>
+                                    <th>P/L (Est.)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="positionsTableBody">
+                                <!-- Data will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="noData" class="no-data hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M8 12h8"></path>
+                    </svg>
+                    <p>No positions found</p>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Crypto Position Tracker. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
